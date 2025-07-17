@@ -1,4 +1,10 @@
 # 🧠 Sorting Visualizer
+-Implemented core sorting algorithms and visualized element swaps using animation.
+
+-Each sorting method (Bubble, Quick, Selection, Merge) was written from scratch, demonstrating algorithmic understanding.
+
+-Used JavaScript and DOM manipulation to animate comparisons and swaps.
+
 
 A web-based visualization tool that demonstrates how popular sorting algorithms work using animated bar charts.
 
@@ -27,6 +33,16 @@ Demo pics
 🔗 **Try it here**: [https://sorting-algorithm-visualizer-nu.vercel.app/]
 
 
+## Technologies Used
+- JavaScript (ES6 Modules)
+- HTML/CSS
+- DOM Manipulation
+- CSS Transitions
+
+## Concepts Demonstrated
+- Sorting Algorithms: Bubble, Quick, Selection, Merge
+- Algorithm Visualization using step-wise swaps
+- Dynamic Array Generation and Animation
 
 ---
 
