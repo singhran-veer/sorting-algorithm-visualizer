@@ -60,55 +60,70 @@ class SortingAlgorithms {
 
   quickSort(array, compareFn = defaultCompare) {
     const swaps = [];
-    
-    const partition = (arr, low, high) => {
-      const pivot = arr[high];
-      let i = low - 1;
-      
-      for (let j = low; j < high; j++) {
+
+    const partition = (arr, s, e) => {
+      const pivot = arr[s];
+      let cnt = 0;
+
+   
+      for (let i = s + 1; i <= e; i++) {
         swaps.push({
-          firstPosition: j,
-          lastPosition: high,
+          firstPosition: i,
+          lastPosition: s,
           type: 'compare'
         });
-        
-        if (arr[j] < pivot) {
-          i++;
-          [arr[i], arr[j]] = [arr[j], arr[i]];
-          if (i !== j) {
-            swaps.push({
-              firstPosition: i,
-              lastPosition: j,
-              type: 'swap'
-            });
-          }
+        if (compareFn(arr[i], pivot) !== Compare.BIGGER_THAN) {
+          cnt++;
         }
       }
-      
-      [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]];
-      if (i + 1 !== high) {
+
+    
+      const pivotIndex = s + cnt;
+      [arr[pivotIndex], arr[s]] = [arr[s], arr[pivotIndex]];
+      if (pivotIndex !== s) {
         swaps.push({
-          firstPosition: i + 1,
-          lastPosition: high,
+          firstPosition: pivotIndex,
+          lastPosition: s,
           type: 'swap'
         });
       }
-      return i + 1;
-    };
-    
-    const quickSortHelper = (arr, low, high) => {
-      if (low < high) {
-        const pi = partition(arr, low, high);
-        quickSortHelper(arr, low, pi - 1);
-        quickSortHelper(arr, pi + 1, high);
+
+      
+      let i = s, j = e;
+      while (i < pivotIndex && j > pivotIndex) {
+        while (compareFn(arr[i], pivot) !== Compare.BIGGER_THAN) {
+          i++;
+        }
+        while (compareFn(arr[j], pivot) === Compare.BIGGER_THAN) {
+          j--;
+        }
+        if (i < pivotIndex && j > pivotIndex) {
+          [arr[i], arr[j]] = [arr[j], arr[i]];
+          swaps.push({
+            firstPosition: i,
+            lastPosition: j,
+            type: 'swap'
+          });
+          i++;
+          j--;
+        }
       }
+
+      return pivotIndex;
     };
-    
+
+    const quickSortHelper = (arr, s, e) => {
+      if (s >= e) return;
+      const p = partition(arr, s, e);
+      quickSortHelper(arr, s, p - 1);
+      quickSortHelper(arr, p + 1, e);
+    };
+
     quickSortHelper(array, 0, array.length - 1);
     return swaps;
   }
 
-  mergeSort(array, compareFn = defaultCompare) {
+  mergeSort(array) {
     const swaps = [];
     const auxiliaryArray = array.slice();
     
@@ -123,8 +138,7 @@ class SortingAlgorithms {
           lastPosition: j,
           type: 'compare'
         });
-        
-        if (compareFn(auxiliaryArray[i], auxiliaryArray[j]) === Compare.LESS_THAN) {
+        if (auxiliaryArray[i] < auxiliaryArray[j]) {
           swaps.push({
             firstPosition: k,
             value: auxiliaryArray[i],
@@ -162,7 +176,6 @@ class SortingAlgorithms {
     
     const mergeSortHelper = (mainArray, startIdx, endIdx, auxiliaryArray) => {
       if (startIdx === endIdx) return;
-      
       const midIdx = Math.floor((startIdx + endIdx) / 2);
       mergeSortHelper(auxiliaryArray, startIdx, midIdx, mainArray);
       mergeSortHelper(auxiliaryArray, midIdx + 1, endIdx, mainArray);

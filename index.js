@@ -15,7 +15,7 @@ const sortingAlgorithms = new SortingAlgorithms();
 
 const start = () => {
   stage.innerHTML = '';
-  bars = Array(nBars).fill(0).map(() => ({
+  bars = Array(nBars).fill(0).map(() => ({ 
     width: 20,
     height: Math.floor(Math.random() * 200) + 1
   }));
@@ -43,7 +43,7 @@ async function swapBars(i, j) {
   
   [barsDivs[i], barsDivs[j]] = [barsDivs[j], barsDivs[i]];
   
-  await sleep(300);
+  await sleep(600);
   barsDivs[i].classList.remove('swapping');
   barsDivs[j].classList.remove('swapping');
 }
@@ -51,7 +51,7 @@ async function swapBars(i, j) {
 async function highlightCompare(i, j) {
   barsDivs[i].classList.add('comparing');
   barsDivs[j].classList.add('comparing');
-  await sleep(100);
+  await sleep(300);
   barsDivs[i].classList.remove('comparing');
   barsDivs[j].classList.remove('comparing');
 }
@@ -59,7 +59,7 @@ async function highlightCompare(i, j) {
 async function highlightMerge(i, j) {
   barsDivs[i].classList.add('merge-highlight');
   barsDivs[j].classList.add('merge-highlight');
-  await sleep(100);
+  await sleep(300);
   barsDivs[i].classList.remove('merge-highlight');
   barsDivs[j].classList.remove('merge-highlight');
 }
@@ -67,7 +67,7 @@ async function highlightMerge(i, j) {
 async function overwriteBar(position, value) {
   barsDivs[position].classList.add('merge-overwrite');
   barsDivs[position].style.height = `${value}px`;
-  await sleep(100);
+  await sleep(500);
   barsDivs[position].classList.remove('merge-overwrite');
 }
 
