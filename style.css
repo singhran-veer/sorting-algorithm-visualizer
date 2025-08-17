@@ -107,7 +107,7 @@ button:disabled {
 }
 
 .bar.merge-highlight {
-  background: #00cc66;
+  background: #ffcc00;
   z-index: 2;
 }
 
