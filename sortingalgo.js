@@ -14,6 +14,7 @@ class SortingAlgorithms {
     const n = array.length;
     for (let i = 0; i < n - 1; i++) {
       for (let j = 0; j < n - i - 1; j++) {
+        swaps.push({firstPosition:j,lastPosition:j+1,type:'compare'});
         if (array[j] > array[j + 1]) {
           [array[j], array[j + 1]] = [array[j + 1], array[j]];
           swaps.push({ 
